@@ -1,0 +1,38 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">Choose what moves you</p>
+    <h1>Find a cause that feels close to home.</h1>
+    <p>Browse community work by focus area and find a meaningful place to begin.</p>
+  </section>
+  <section class="category-grid" aria-label="Project categories">
+    <article class="category-card" id="education">
+      <img src="/images/education.jpeg" alt="Education and learning initiative">
+      <div class="card-copy">
+        <p class="card-label">01 / Learning</p>
+        <h2>Education</h2>
+        <p>Support learning, mentorship, and access to new opportunities at every stage of life.</p>
+        <a class="card-link" href="/projects">Explore projects <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+    <article class="category-card" id="environment">
+      <img src="/images/environment.jpeg" alt="Environmental care initiative">
+      <div class="card-copy">
+        <p class="card-label">02 / Stewardship</p>
+        <h2>Environment</h2>
+        <p>Help protect shared spaces and build a healthier, more sustainable future.</p>
+        <a class="card-link" href="/projects">Explore projects <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+    <article class="category-card" id="health">
+      <img src="/images/health.jpeg" alt="Health and wellbeing initiative">
+      <div class="card-copy">
+        <p class="card-label">03 / Wellbeing</p>
+        <h2>Health &amp; wellbeing</h2>
+        <p>Connect with community efforts that make care, connection, and wellbeing stronger.</p>
+        <a class="card-link" href="/projects">Explore projects <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+  </section>
+</main>
+<%- include('partials/footer') %>

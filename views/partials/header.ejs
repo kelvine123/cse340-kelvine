@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover community organizations, projects, and opportunities to make a local impact.">
+    <meta name="theme-color" content="#f7f6f1">
+    <title><%= pageTitle %> | Common Ground</title>
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Common Ground home">
+          <span class="brand-mark" aria-hidden="true">cg</span>
+          <span class="brand-copy">
+            <span class="brand-name">Common Ground</span>
+            <span class="brand-tagline">COMMUNITY IN ACTION</span>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/" aria-current="<%= currentPage === 'home' ? 'page' : 'false' %>">Home</a>
+          <a href="/organizations" aria-current="<%= currentPage === 'organizations' ? 'page' : 'false' %>">Organizations</a>
+          <a href="/projects" aria-current="<%= currentPage === 'projects' ? 'page' : 'false' %>">Projects</a>
+          <a class="nav-cta" href="/categories" aria-current="<%= currentPage === 'categories' ? 'page' : 'false' %>">Explore categories</a>
+        </nav>
+      </div>
+    </header>

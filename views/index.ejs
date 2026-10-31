@@ -1,0 +1,62 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main>
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Local action. Lasting change.</p>
+      <h1>Good things happen when we <span>work together.</span></h1>
+      <p>Meet the organizations and community projects creating a brighter future, one thoughtful step at a time.</p>
+      <div class="hero-actions">
+        <a class="button" href="/projects">Explore projects <span class="button-arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="text-link" href="/organizations">Meet the organizations</a>
+      </div>
+    </div>
+    <figure class="hero-image">
+      <img src="/images/community.jpeg" alt="A community initiative bringing people together">
+      <figcaption class="image-note">
+        <strong>Rooted in community</strong>
+        <span>Ideas grow when we grow them together.</span>
+      </figcaption>
+    </figure>
+  </section>
+  <section class="intro-section">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Find your starting point</p>
+          <h2>Small steps can make a meaningful difference.</h2>
+        </div>
+        <p>Explore the causes and projects bringing neighbors together across our community.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <img src="/images/education.jpeg" alt="An education-focused community project">
+          <div class="card-copy">
+            <p class="card-label">Learning</p>
+            <h3>Open doors through education</h3>
+            <p>Discover projects that support learning, mentorship, and opportunity.</p>
+            <a class="card-link" href="/categories#education">Explore education <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="feature-card">
+          <img src="/images/environment.jpeg" alt="A project focused on caring for the environment">
+          <div class="card-copy">
+            <p class="card-label">Environment</p>
+            <h3>Care for the places we share</h3>
+            <p>Find local efforts helping create a healthier, more resilient environment.</p>
+            <a class="card-link" href="/categories#environment">Explore environment <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+        <article class="feature-card">
+          <img src="/images/health.jpeg" alt="A community health and wellbeing initiative">
+          <div class="card-copy">
+            <p class="card-label">Wellbeing</p>
+            <h3>Help every neighbor thrive</h3>
+            <p>Connect with initiatives that support health, care, and wellbeing.</p>
+            <a class="card-link" href="/categories#health">Explore wellbeing <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('partials/footer') %>
