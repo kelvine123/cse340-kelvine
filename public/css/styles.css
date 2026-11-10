@@ -477,6 +477,79 @@ h1,
   padding-top: 55px;
 }
 
+.entity-list {
+  display: grid;
+  gap: 16px;
+}
+
+.entity-card,
+.project-details {
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  background: var(--color-paper);
+}
+
+.entity-card h2,
+.entity-card h3,
+.project-details h2 {
+  margin-bottom: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.entity-card h2 a,
+.entity-card h3 a,
+.project-details a,
+.category-card h2 a {
+  color: var(--color-green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.entity-card p,
+.project-details p {
+  margin-bottom: 8px;
+  color: var(--color-muted);
+}
+
+.entity-card .card-label {
+  color: var(--color-green);
+}
+
+.entity-card time,
+.project-details time {
+  font-weight: 600;
+}
+
+.project-details {
+  max-width: 760px;
+}
+
+.project-details .topic-list {
+  margin-top: 0;
+}
+
+.project-details .topic-list a {
+  color: var(--color-green-dark);
+  text-decoration: none;
+}
+
+.project-details .topic-list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 22px;
+  border-radius: 10px;
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+}
+
 .site-footer {
   padding-block: 35px;
   background: var(--color-green-dark);

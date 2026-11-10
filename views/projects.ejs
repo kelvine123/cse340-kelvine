@@ -5,36 +5,18 @@
     <h1>Projects that bring community ideas to life.</h1>
     <p>Explore community-led work across learning, the environment, and health and wellbeing.</p>
   </section>
-  <section aria-label="Featured projects">
-    <div class="project-grid">
-      <article class="project-card">
-        <img src="/images/education.jpeg" alt="An education-focused community project">
-        <div class="card-copy">
-          <p class="card-label">Education</p>
-          <h2>Learning, shared freely</h2>
-          <p>Explore projects that help people learn, build skills, and access new opportunities.</p>
-          <a class="card-link" href="/categories#education">View education category <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="project-card">
-        <img src="/images/environment.jpeg" alt="An environmental care project">
-        <div class="card-copy">
-          <p class="card-label">Environment</p>
-          <h2>Care for our shared home</h2>
-          <p>Find local work focused on caring for natural spaces and a sustainable future.</p>
-          <a class="card-link" href="/categories#environment">View environment category <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-      <article class="project-card">
-        <img src="/images/health.jpeg" alt="A health and wellbeing community project">
-        <div class="card-copy">
-          <p class="card-label">Health &amp; wellbeing</p>
-          <h2>Wellbeing within reach</h2>
-          <p>Discover initiatives that help make care, connection, and healthy living more accessible.</p>
-          <a class="card-link" href="/categories#health">View wellbeing category <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-    </div>
+  <section class="entity-list" aria-label="Upcoming service projects">
+    <% projects.forEach((project) => { %>
+    <article class="entity-card">
+      <p class="card-label">Upcoming project · <time datetime="<%= project.project_date %>"><%= new Date(`${project.project_date}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', dateStyle: 'long' }) %></time></p>
+      <h2><a href="/project/<%= project.project_id %>"><%= project.project_name %></a></h2>
+      <p><%= project.description %></p>
+      <p>Organized by <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+    </article>
+    <% }) %>
+    <% if (projects.length === 0) { %>
+    <p class="empty-state">There are no upcoming projects to show yet.</p>
+    <% } %>
   </section>
 </main>
 <%- include('partials/footer') %>

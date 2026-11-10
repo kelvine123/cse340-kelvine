@@ -1,0 +1,23 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">Explore by focus area</p>
+    <h1><%= category.category_name %></h1>
+    <p>Discover the service projects making a difference in this area.</p>
+  </section>
+  <section class="entity-list" aria-label="Projects in this category">
+    <% projects.forEach((project) => { %>
+    <article class="entity-card">
+      <h2><a href="/project/<%= project.project_id %>"><%= project.project_name %></a></h2>
+      <p><%= project.description %></p>
+      <% if (project.project_date) { %>
+      <p class="card-label">Project date · <time datetime="<%= project.project_date %>"><%= new Date(`${project.project_date}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', dateStyle: 'long' }) %></time></p>
+      <% } %>
+    </article>
+    <% }) %>
+    <% if (projects.length === 0) { %>
+    <p class="empty-state">There are no projects in this category yet.</p>
+    <% } %>
+  </section>
+</main>
+<%- include('partials/footer') %>

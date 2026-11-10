@@ -3,7 +3,7 @@
 ## Run locally
 
 1. Install dependencies with `npm ci` (or `npm install`).
-2. Copy `.env.example` to `.env` if you want to configure the local port.
+2. Copy `.env.example` to `.env` and set `DATABASE_URL` to your PostgreSQL connection string.
 3. Start the server with `npm start`.
 4. Open `http://localhost:3000`.
 
@@ -16,11 +16,12 @@
 - `public/images/` is served at `/images/`; the pages use `community.jpeg`, `education.jpeg`, `environment.jpeg`, and `health.jpeg`.
 - `.env` is local configuration and is excluded from Git. Use `.env.example` as the safe template.
 
-Available pages are `/`, `/organizations`, `/projects`, and `/categories`.
+Available pages are `/`, `/organizations`, `/organization/:id`, `/projects`,
+`/project/:id`, `/categories`, and `/category/:id`.
 
 ## Database setup
 
-`src/setup.sql` defines the PostgreSQL organizations, service projects,
+`src/setup.sql` defines the PostgreSQL organizations, dated service projects,
 categories, and their relationships, and seeds example records. Create a
 PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 (see `.env.example`), then run:
@@ -29,7 +30,8 @@ PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 psql -d your_database -f src/setup.sql
 ```
 
-The `/categories` page retrieves category names from that database. Configure
+The organizations, projects, and categories pages retrieve their records from
+that database. The projects page shows up to five upcoming projects. Configure
 the same `DATABASE_URL` environment variable in your hosting service to use it
 there.
 
