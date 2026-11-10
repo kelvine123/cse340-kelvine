@@ -18,6 +18,21 @@
 
 Available pages are `/`, `/organizations`, `/projects`, and `/categories`.
 
+## Database setup
+
+`src/setup.sql` defines the PostgreSQL organizations, service projects,
+categories, and their relationships, and seeds example records. Create a
+PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
+(see `.env.example`), then run:
+
+```sh
+psql -d your_database -f src/setup.sql
+```
+
+The `/categories` page retrieves category names from that database. Configure
+the same `DATABASE_URL` environment variable in your hosting service to use it
+there.
+
 ## Render deployment
 
 The root `render.yaml` defines a Node web service. In Render, choose **New > Blueprint**, connect this GitHub repository, and deploy the blueprint. Render uses `npm ci` to install dependencies and `npm start` to launch the app; the service reads Render's `PORT` environment variable.
