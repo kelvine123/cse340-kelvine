@@ -1,9 +1,9 @@
 import { query } from '../database/index.js';
 
-export async function getUpcomingProjects() {
+export const getUpcomingProjects = async () => {
   const { rows } = await query(
     `SELECT project.project_id, project.project_name, project.description,
-            project.project_date, organization.organization_id,
+            project.location, project.project_date, organization.organization_id,
             organization.organization_name
      FROM service_projects AS project
      JOIN organizations AS organization
@@ -13,12 +13,12 @@ export async function getUpcomingProjects() {
      LIMIT 5`,
   );
   return rows;
-}
+};
 
-export async function getProjectById(projectId) {
+export const getProjectById = async (projectId) => {
   const { rows } = await query(
     `SELECT project.project_id, project.project_name, project.description,
-            project.project_date, organization.organization_id,
+            project.location, project.project_date, organization.organization_id,
             organization.organization_name
      FROM service_projects AS project
      JOIN organizations AS organization
@@ -27,4 +27,4 @@ export async function getProjectById(projectId) {
     [projectId],
   );
   return rows[0] ?? null;
-}
+};

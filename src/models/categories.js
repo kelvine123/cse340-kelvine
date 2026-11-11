@@ -1,21 +1,21 @@
 import { query } from '../database/index.js';
 
-export async function getAllCategories() {
+export const getAllCategories = async () => {
   const { rows } = await query(
     'SELECT category_id, category_name FROM categories ORDER BY category_id',
   );
   return rows;
-}
+};
 
-export async function getCategoryById(categoryId) {
+export const getCategoryById = async (categoryId) => {
   const { rows } = await query(
     'SELECT category_id, category_name FROM categories WHERE category_id = $1',
     [categoryId],
   );
   return rows[0] ?? null;
-}
+};
 
-export async function getCategoriesByProjectId(projectId) {
+export const getCategoriesByProjectId = async (projectId) => {
   const { rows } = await query(
     `SELECT category.category_id, category.category_name
      FROM categories AS category
@@ -26,12 +26,12 @@ export async function getCategoriesByProjectId(projectId) {
     [projectId],
   );
   return rows;
-}
+};
 
-export async function getProjectsByCategoryId(categoryId) {
+export const getProjectsByCategoryId = async (categoryId) => {
   const { rows } = await query(
     `SELECT project.project_id, project.project_name, project.description,
-            project.project_date
+            project.location, project.project_date
      FROM service_projects AS project
      JOIN project_categories AS project_category
        ON project_category.project_id = project.project_id
@@ -40,4 +40,4 @@ export async function getProjectsByCategoryId(categoryId) {
     [categoryId],
   );
   return rows;
-}
+};

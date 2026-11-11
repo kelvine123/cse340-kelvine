@@ -2,7 +2,7 @@ import { getCategoriesByProjectId } from '../src/models/categories.js';
 import { getProjectById, getUpcomingProjects } from '../src/models/projects.js';
 import { isValidId, renderNotFound, renderPage } from './controllerUtils.js';
 
-export async function buildProjects(request, response, next) {
+export const buildProjects = async (request, response, next) => {
   try {
     const projects = await getUpcomingProjects();
     await renderPage(response, 'projects', {
@@ -13,15 +13,15 @@ export async function buildProjects(request, response, next) {
   } catch (error) {
     next(error);
   }
-}
+};
 
-export async function buildProjectDetail(request, response, next) {
+export const buildProjectDetail = async (request, response, next) => {
   try {
     const { id } = request.params;
     if (!isValidId(id)) {
       await renderNotFound(response, 'Project not found', 'We could not find that service project.');
       return;
-    }
+    };
 
     const project = await getProjectById(Number(id));
     if (!project) {

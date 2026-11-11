@@ -490,6 +490,15 @@ h1,
   background: var(--color-paper);
 }
 
+.organization-logo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .entity-card h2,
 .entity-card h3,
 .project-details h2 {

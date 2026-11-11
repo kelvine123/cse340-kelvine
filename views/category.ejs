@@ -10,6 +10,9 @@
     <article class="entity-card">
       <h2><a href="/project/<%= project.project_id %>"><%= project.project_name %></a></h2>
       <p><%= project.description %></p>
+      <% if (project.location) { %>
+      <p>Location: <%= project.location %></p>
+      <% } %>
       <% if (project.project_date) { %>
       <p class="card-label">Project date · <time datetime="<%= project.project_date %>"><%= new Date(`${project.project_date}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', dateStyle: 'long' }) %></time></p>
       <% } %>

@@ -9,8 +9,12 @@
     <% organizations.forEach((organization) => { %>
     <article class="entity-card">
       <p class="card-label">Community partner</p>
+      <% if (organization.logo) { %>
+      <img class="organization-logo" src="<%= organization.logo %>" alt="<%= organization.organization_name %> logo">
+      <% } %>
       <h2><a href="/organization/<%= organization.organization_id %>"><%= organization.organization_name %></a></h2>
       <p><%= organization.description %></p>
+      <p>Contact: <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
     </article>
     <% }) %>
     <% if (organizations.length === 0) { %>

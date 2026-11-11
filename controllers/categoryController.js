@@ -5,7 +5,7 @@ import {
 } from '../src/models/categories.js';
 import { isValidId, renderNotFound, renderPage } from './controllerUtils.js';
 
-export async function buildCategories(request, response, next) {
+export const buildCategories = async (request, response, next) => {
   try {
     const categories = await getAllCategories();
     await renderPage(response, 'categories', {
@@ -16,15 +16,15 @@ export async function buildCategories(request, response, next) {
   } catch (error) {
     next(error);
   }
-}
+};
 
-export async function buildCategoryDetail(request, response, next) {
+export const buildCategoryDetail = async (request, response, next) => {
   try {
     const { id } = request.params;
     if (!isValidId(id)) {
       await renderNotFound(response, 'Category not found', 'We could not find that category.');
       return;
-    }
+    };
 
     const category = await getCategoryById(Number(id));
     if (!category) {

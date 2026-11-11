@@ -21,8 +21,9 @@ Available pages are `/`, `/organizations`, `/organization/:id`, `/projects`,
 
 ## Database setup
 
-`src/setup.sql` defines the PostgreSQL organizations, dated service projects,
-categories, and their relationships, and seeds example records. Create a
+`src/setup.sql` defines organizations (including descriptions, contact emails,
+and logos), dated service projects (including locations), categories, and the
+many-to-many project/category relationship, and seeds example records. Create a
 PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 (see `.env.example`), then run:
 
@@ -32,8 +33,8 @@ psql -d your_database -f src/setup.sql
 
 The organizations, projects, and categories pages retrieve their records from
 that database. The projects page shows up to five upcoming projects. Configure
-the same `DATABASE_URL` environment variable in your hosting service to use it
-there.
+the same `DATABASE_URL` environment variable in your hosting service and run
+the setup script against that database to use these pages there.
 
 ## Render deployment
 

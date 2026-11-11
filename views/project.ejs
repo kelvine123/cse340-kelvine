@@ -8,6 +8,7 @@
   <section class="project-details" aria-label="Project details">
     <p>Organized by <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
     <p>Project date: <time datetime="<%= project.project_date %>"><%= new Date(`${project.project_date}T00:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', dateStyle: 'long' }) %></time></p>
+    <p>Location: <%= project.location %></p>
     <h2>Categories</h2>
     <% if (categories.length > 0) { %>
     <ul class="topic-list" aria-label="Project categories">

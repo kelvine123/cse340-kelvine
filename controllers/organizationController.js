@@ -5,7 +5,7 @@ import {
 } from '../src/models/organizations.js';
 import { isValidId, renderNotFound, renderPage } from './controllerUtils.js';
 
-export async function buildOrganizations(request, response, next) {
+export const buildOrganizations = async (request, response, next) => {
   try {
     const organizations = await getAllOrganizations();
     await renderPage(response, 'organizations', {
@@ -16,15 +16,15 @@ export async function buildOrganizations(request, response, next) {
   } catch (error) {
     next(error);
   }
-}
+};
 
-export async function buildOrganizationDetail(request, response, next) {
+export const buildOrganizationDetail = async (request, response, next) => {
   try {
     const { id } = request.params;
     if (!isValidId(id)) {
       await renderNotFound(response, 'Organization not found', 'We could not find that organization.');
       return;
-    }
+    };
 
     const organization = await getOrganizationById(Number(id));
     if (!organization) {
