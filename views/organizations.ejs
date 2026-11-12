@@ -5,16 +5,18 @@
     <h1>Meet the organizations behind local change.</h1>
     <p>Community progress is powered by people who show up, share what they know, and make room for others to take part.</p>
   </section>
-  <section class="entity-list" aria-label="Partner organizations">
+  <section class="feature-grid" aria-label="Partner organizations">
     <% organizations.forEach((organization) => { %>
-    <article class="entity-card">
-      <p class="card-label">Community partner</p>
+    <article class="feature-card">
       <% if (organization.logo) { %>
-      <img class="organization-logo" src="<%= organization.logo %>" alt="<%= organization.organization_name %> logo">
+      <img src="<%= organization.logo %>" alt="<%= organization.organization_name %> logo">
       <% } %>
-      <h2><a href="/organization/<%= organization.organization_id %>"><%= organization.organization_name %></a></h2>
-      <p><%= organization.description %></p>
-      <p>Contact: <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
+      <div class="card-copy">
+        <p class="card-label">Community partner</p>
+        <h2><%= organization.organization_name %></h2>
+        <p><%= organization.description %></p>
+        <a class="card-link" href="mailto:<%= organization.contact_email %>">Contact <%= organization.organization_name %></a>
+      </div>
     </article>
     <% }) %>
     <% if (organizations.length === 0) { %>

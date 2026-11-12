@@ -16,14 +16,12 @@
 - `public/images/` is served at `/images/`; the pages use `community.jpeg`, `education.jpeg`, `environment.jpeg`, and `health.jpeg`.
 - `.env` is local configuration and is excluded from Git. Use `.env.example` as the safe template.
 
-Available pages are `/`, `/organizations`, `/organization/:id`, `/projects`,
-`/project/:id`, `/categories`, and `/category/:id`.
+Available pages are `/`, `/organizations`, `/projects`, and `/categories`.
 
 ## Database setup
 
-`src/setup.sql` defines organizations (including descriptions, contact emails,
-and logos), dated service projects (including locations), categories, and the
-many-to-many project/category relationship, and seeds example records. Create a
+`src/setup.sql` defines the PostgreSQL organizations, service projects,
+categories, and their relationships, and seeds example records. Create a
 PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 (see `.env.example`), then run:
 
@@ -31,10 +29,11 @@ PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 psql -d your_database -f src/setup.sql
 ```
 
-The organizations, projects, and categories pages retrieve their records from
-that database. The projects page shows up to five upcoming projects. Configure
-the same `DATABASE_URL` environment variable in your hosting service and run
-the setup script against that database to use these pages there.
+The `/categories` page retrieves category names from that database. Configure
+the same `DATABASE_URL` environment variable in your hosting service to use it
+there. The organizations page displays organization names, descriptions,
+contact emails, and logos from the database. The projects page displays project
+names, descriptions, locations, and their organizations.
 
 ## Render deployment
 
