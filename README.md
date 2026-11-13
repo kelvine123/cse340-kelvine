@@ -29,6 +29,9 @@ PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 psql -d your_database -f src/setup.sql
 ```
 
+Each service project has a date, and the setup script seeds at least five
+projects for each organization with category associations.
+
 The `/categories` page retrieves category names from that database. Configure
 the same `DATABASE_URL` environment variable in your hosting service to use it
 there. The organizations page displays organization names, descriptions,
