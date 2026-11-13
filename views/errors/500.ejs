@@ -1,0 +1,17 @@
+<%- include('../partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">500 error</p>
+    <h1>Something went wrong</h1>
+    <p>We're having trouble loading this page. Please try again later.</p>
+    <a class="button" href="/">Return home</a>
+    <% if (NODE_ENV === 'development') { %>
+    <details class="error-details">
+      <summary>Error details (development only)</summary>
+      <p><%= error %></p>
+      <pre><%= stack %></pre>
+    </details>
+    <% } %>
+  </section>
+</main>
+<%- include('../partials/footer') %>

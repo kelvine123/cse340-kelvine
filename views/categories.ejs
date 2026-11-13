@@ -9,10 +9,17 @@
     <% categories.forEach((category) => { %>
     <article class="category-card" id="category-<%= category.category_id %>">
       <div class="card-copy">
-        <h2><%= category.category_name %></h2>
+        <h2>
+          <a class="item-link" href="/category/<%= category.category_id %>">
+            <%= category.category_name %>
+          </a>
+        </h2>
       </div>
     </article>
     <% }) %>
+    <% if (categories.length === 0) { %>
+    <p class="empty-state">There are no categories to show yet.</p>
+    <% } %>
   </section>
 </main>
 <%- include('partials/footer') %>

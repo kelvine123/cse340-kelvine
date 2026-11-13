@@ -1,0 +1,32 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">Community partner</p>
+    <h1><%= organization.organization_name %></h1>
+  </section>
+  <article class="organization-feature">
+    <% if (organization.logo) { %>
+    <img src="<%= organization.logo %>" alt="<%= organization.organization_name %> logo">
+    <% } %>
+    <div class="organization-copy">
+      <h2>About the organization</h2>
+      <p><%= organization.description %></p>
+      <p><a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
+    </div>
+  </article>
+  <section class="page-section" aria-label="Service projects from this organization">
+    <h2>Service projects</h2>
+    <% if (projects.length > 0) { %>
+    <ul class="project-link-list">
+      <% projects.forEach((project) => { %>
+      <li>
+        <a href="/project/<%= project.project_id %>"><%= project.project_name %></a>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p class="empty-state">This organization has no service projects yet.</p>
+    <% } %>
+  </section>
+</main>
+<%- include('partials/footer') %>

@@ -9,14 +9,17 @@
 
 ## Project paths
 
-- `server.js` configures Express, EJS, static files, and page routes using ES modules.
-- `controllers/baseController.js` contains the page render handlers.
-- `views/` contains the EJS pages and shared header/footer partials.
+- `server.js` configures Express, EJS, static files, and error handling.
+- `src/routes.js` maps URL paths to controller functions.
+- `src/controllers/` coordinates model calls and page rendering.
+- `src/models/` contains PostgreSQL queries for organizations, projects, and categories.
+- `views/` contains the EJS list, detail, and error pages plus shared partials.
 - `public/css/styles.css` is served at `/css/styles.css`.
 - `public/images/` is served at `/images/`; the pages use `community.jpeg`, `education.jpeg`, `environment.jpeg`, and `health.jpeg`.
 - `.env` is local configuration and is excluded from Git. Use `.env.example` as the safe template.
 
-Available pages are `/`, `/organizations`, `/projects`, and `/categories`.
+Available list pages are `/`, `/organizations`, `/projects`, and `/categories`.
+Detail routes use `/organization/:id`, `/project/:id`, and `/category/:id`.
 
 ## Database setup
 
