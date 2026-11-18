@@ -1,4 +1,4 @@
-import { query } from '../database/index.js';
+import { query, withTransaction } from '../database/index.js';
 
 export const getUpcomingProjects = async (numberOfProjects) => {
   if (!Number.isInteger(numberOfProjects) || numberOfProjects < 1) {
@@ -32,6 +32,92 @@ export const getProjectDetails = async (projectId) => {
     [projectId],
   );
   return rows[0] ?? null;
+};
+
+export const createProject = async (project) => {
+  return withTransaction(async (client) => {
+    const { rows } = await client.query(
+      `INSERT INTO service_projects (
+         project_name, description, project_date, location, organization_id
+       )
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING project_id`,
+      [
+        project.project_name,
+        project.description,
+        project.project_date,
+        project.location,
+        project.organization_id,
+      ],
+    );
+    const projectId = rows[0].project_id;
+    await setProjectCategories(client, projectId, project.category_ids);
+    return projectId;
+  });
+};
+
+export const updateProject = async (projectId, project) => {
+  return withTransaction(async (client) => {
+    const { rows } = await client.query(
+      `UPDATE service_projects
+       SET project_name = $2,
+           description = $3,
+           project_date = $4,
+           location = $5,
+           organization_id = $6
+       WHERE project_id = $1
+       RETURNING project_id`,
+      [
+        projectId,
+        project.project_name,
+        project.description,
+        project.project_date,
+        project.location,
+        project.organization_id,
+      ],
+    );
+    if (rows.length === 0) {
+      return false;
+    }
+
+    await client.query('DELETE FROM project_categories WHERE project_id = $1', [projectId]);
+    await setProjectCategories(client, projectId, project.category_ids);
+    return true;
+  });
+};
+
+const setProjectCategories = async (client, projectId, categoryIds) => {
+  for (const categoryId of categoryIds) {
+    await client.query(
+      `INSERT INTO project_categories (project_id, category_id)
+       VALUES ($1, $2)`,
+      [projectId, categoryId],
+    );
+  }
+};
+
+export const getProjectEditDetails = async (projectId) => {
+  const { rows } = await query(
+    `SELECT project_id, project_name, description, project_date, location, organization_id
+     FROM service_projects
+     WHERE project_id = $1`,
+    [projectId],
+  );
+  if (!rows[0]) {
+    return null;
+  }
+
+  const categoryResult = await query(
+    `SELECT category_id
+     FROM project_categories
+     WHERE project_id = $1
+     ORDER BY category_id`,
+    [projectId],
+  );
+  return {
+    ...rows[0],
+    category_ids: categoryResult.rows.map((row) => row.category_id),
+  };
 };
 
 export const getProjectsByOrganizationId = async (organizationId) => {

@@ -17,6 +17,27 @@ export const getCategoryDetails = async (categoryId) => {
   return rows[0] ?? null;
 };
 
+export const createCategory = async (categoryName) => {
+  const { rows } = await query(
+    `INSERT INTO categories (category_name)
+     VALUES ($1)
+     RETURNING category_id, category_name`,
+    [categoryName],
+  );
+  return rows[0];
+};
+
+export const updateCategory = async (categoryId, categoryName) => {
+  const { rows } = await query(
+    `UPDATE categories
+     SET category_name = $2
+     WHERE category_id = $1
+     RETURNING category_id, category_name`,
+    [categoryId, categoryName],
+  );
+  return rows[0] ?? null;
+};
+
 export const getCategoriesByProjectId = async (projectId) => {
   const { rows } = await query(
     `SELECT category.category_id, category.category_name

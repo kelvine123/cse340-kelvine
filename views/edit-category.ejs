@@ -1,0 +1,29 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">Categories</p>
+    <h1>Edit category</h1>
+    <p>Update the name used to group related service projects.</p>
+  </section>
+  <form class="form-card" action="/edit-category/<%= category.category_id %>" method="post">
+    <% if (Object.keys(errors).length > 0) { %>
+    <div class="form-errors" role="alert">
+      <p>Please correct the following:</p>
+      <ul><li><%= errors.category_name %></li></ul>
+    </div>
+    <% } %>
+    <div class="form-field">
+      <label for="category_name">Category name</label>
+      <input id="category_name" name="category_name" type="text" value="<%= category.category_name %>"
+        maxlength="100" required <%= errors.category_name ? 'aria-invalid="true" aria-describedby="category_name_error"' : '' %>>
+      <% if (errors.category_name) { %>
+      <p class="field-error" id="category_name_error"><%= errors.category_name %></p>
+      <% } %>
+    </div>
+    <div class="form-actions">
+      <button class="button" type="submit">Save category</button>
+      <a class="text-link" href="/category/<%= category.category_id %>">Cancel</a>
+    </div>
+  </form>
+</main>
+<%- include('partials/footer') %>

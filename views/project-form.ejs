@@ -1,0 +1,71 @@
+<%- include('partials/header', { pageTitle, currentPage }) %>
+<main class="container page-content">
+  <section class="page-hero">
+    <p class="eyebrow">Service projects</p>
+    <h1><%= heading %></h1>
+    <p>Provide the details neighbors need to take part in this project.</p>
+  </section>
+  <form class="form-card" action="<%= action %>" method="post">
+    <% if (Object.keys(errors).length > 0) { %>
+    <div class="form-errors" role="alert">
+      <p>Please correct the highlighted fields.</p>
+    </div>
+    <% } %>
+    <div class="form-field">
+      <label for="project_name">Project name</label>
+      <input id="project_name" name="project_name" type="text" value="<%= project.project_name %>"
+        maxlength="150" required <%= errors.project_name ? 'aria-invalid="true" aria-describedby="project_name_error"' : '' %>>
+      <% if (errors.project_name) { %><p class="field-error" id="project_name_error"><%= errors.project_name %></p><% } %>
+    </div>
+    <div class="form-field">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="5" required
+        <%= errors.description ? 'aria-invalid="true" aria-describedby="description_error"' : '' %>><%= project.description %></textarea>
+      <% if (errors.description) { %><p class="field-error" id="description_error"><%= errors.description %></p><% } %>
+    </div>
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="project_date">Project date</label>
+        <input id="project_date" name="project_date" type="date" value="<%= project.project_date %>" required
+          <%= errors.project_date ? 'aria-invalid="true" aria-describedby="project_date_error"' : '' %>>
+        <% if (errors.project_date) { %><p class="field-error" id="project_date_error"><%= errors.project_date %></p><% } %>
+      </div>
+      <div class="form-field">
+        <label for="location">Location</label>
+        <input id="location" name="location" type="text" value="<%= project.location %>"
+          maxlength="255" required <%= errors.location ? 'aria-invalid="true" aria-describedby="location_error"' : '' %>>
+        <% if (errors.location) { %><p class="field-error" id="location_error"><%= errors.location %></p><% } %>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="organization_id">Organization</label>
+      <select id="organization_id" name="organization_id" required
+        <%= errors.organization_id ? 'aria-invalid="true" aria-describedby="organization_id_error"' : '' %>>
+        <option value="">Choose an organization</option>
+        <% organizations.forEach((organization) => { %>
+        <option value="<%= organization.organization_id %>"
+          <%= String(organization.organization_id) === String(project.organization_id) ? 'selected' : '' %>>
+          <%= organization.organization_name %>
+        </option>
+        <% }) %>
+      </select>
+      <% if (errors.organization_id) { %><p class="field-error" id="organization_id_error"><%= errors.organization_id %></p><% } %>
+    </div>
+    <fieldset class="form-field category-options">
+      <legend>Categories <span class="optional-label">(optional)</span></legend>
+      <% categories.forEach((category) => { %>
+      <label class="checkbox-label">
+        <input type="checkbox" name="category_ids" value="<%= category.category_id %>"
+          <%= project.category_ids.map(String).includes(String(category.category_id)) ? 'checked' : '' %>>
+        <span><%= category.category_name %></span>
+      </label>
+      <% }) %>
+      <% if (errors.category_ids) { %><p class="field-error"><%= errors.category_ids %></p><% } %>
+    </fieldset>
+    <div class="form-actions">
+      <button class="button" type="submit"><%= submitLabel %></button>
+      <a class="text-link" href="/projects">Cancel</a>
+    </div>
+  </form>
+</main>
+<%- include('partials/footer') %>

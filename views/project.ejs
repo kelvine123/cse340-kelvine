@@ -12,6 +12,7 @@
     </p>
     <p><%= project.description %></p>
     <p>Location: <%= project.location %></p>
+    <a class="button page-action" href="/edit-project/<%= project.project_id %>">Edit project</a>
     <p>
       Organization:
       <a class="item-link" href="/organization/<%= project.organization_id %>">

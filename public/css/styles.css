@@ -466,6 +466,134 @@ h1,
   color: var(--color-muted);
 }
 
+.page-action {
+  margin-top: 20px;
+}
+
+.form-card {
+  display: grid;
+  max-width: 760px;
+  gap: 22px;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  background: var(--color-paper);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.form-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.form-field label,
+.form-field legend {
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #87978e;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--color-ink);
+  font: inherit;
+}
+
+.form-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible,
+.form-field select:focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
+}
+
+.form-field [aria-invalid='true'] {
+  border-color: #a52e26;
+}
+
+.optional-label {
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.form-errors {
+  padding: 14px 17px;
+  border-left: 4px solid #a52e26;
+  background: #fff0ed;
+  color: #70231d;
+}
+
+.form-errors p {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.form-errors ul {
+  margin-bottom: 0;
+}
+
+.field-error {
+  margin: 0;
+  color: #8d211b;
+  font-size: 13px;
+}
+
+.category-options {
+  gap: 12px;
+}
+
+.category-options legend {
+  margin-bottom: 7px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500 !important;
+}
+
+.checkbox-label input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--color-green);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  padding-top: 4px;
+}
+
+.form-actions .button {
+  font: inherit;
+  cursor: pointer;
+}
+
 .error-details {
   margin-top: 30px;
   padding: 16px;
@@ -643,6 +771,10 @@ h1,
 
   .organization-feature {
     grid-template-columns: 0.9fr 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 }
 

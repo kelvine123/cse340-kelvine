@@ -4,6 +4,7 @@
     <p class="eyebrow">Choose what moves you</p>
     <h1>Find a cause that feels close to home.</h1>
     <p>Browse community work by focus area and find a meaningful place to begin.</p>
+    <a class="button page-action" href="/new-category">Create a category</a>
   </section>
   <section class="category-grid" aria-label="Project categories">
     <% categories.forEach((category) => { %>
@@ -14,6 +15,7 @@
             <%= category.category_name %>
           </a>
         </h2>
+        <a class="card-link" href="/edit-category/<%= category.category_id %>">Edit category</a>
       </div>
     </article>
     <% }) %>

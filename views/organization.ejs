@@ -3,6 +3,7 @@
   <section class="page-hero">
     <p class="eyebrow">Community partner</p>
     <h1><%= organization.organization_name %></h1>
+    <a class="button page-action" href="/edit-organization/<%= organization.organization_id %>">Edit organization</a>
   </section>
   <article class="organization-feature">
     <% if (organization.logo) { %>

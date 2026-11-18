@@ -20,6 +20,11 @@
 
 Available list pages are `/`, `/organizations`, `/projects`, and `/categories`.
 Detail routes use `/organization/:id`, `/project/:id`, and `/category/:id`.
+Create and edit forms are available at `/new-organization`,
+`/edit-organization/:id`, `/new-project`, `/edit-project/:id`,
+`/new-category`, and `/edit-category/:id`. Form submissions use POST routes at
+the same paths and display server-side validation errors without discarding the
+submitted values.
 
 ## Database setup
 

@@ -14,6 +14,7 @@ app.set('views', path.join(currentDirectory, 'views'));
 app.set('env', nodeEnvironment);
 app.locals.NODE_ENV = nodeEnvironment;
 app.use(express.static(path.join(currentDirectory, 'public')));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(router);
 
