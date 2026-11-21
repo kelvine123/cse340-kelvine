@@ -4,8 +4,9 @@
 
 1. Install dependencies with `npm ci` (or `npm install`).
 2. Copy `.env.example` to `.env` and set `DATABASE_URL` to your PostgreSQL connection string.
-3. Start the server with `npm start`.
-4. Open `http://localhost:3000`.
+3. Set `SESSION_SECRET` to a long random value in production.
+4. Start the server with `npm start`.
+5. Open `http://localhost:3000`.
 
 ## Project paths
 
@@ -36,6 +37,10 @@ PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
 ```sh
 psql -d your_database -f src/setup.sql
 ```
+
+The setup script also creates the administrator account
+`admin@example.com` with the password `cse340!`. The server's authentication
+startup also verifies and updates this account.
 
 Each service project has a date, and the setup script seeds at least five
 projects for each organization with category associations.

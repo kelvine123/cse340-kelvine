@@ -140,6 +140,30 @@ a:focus-visible {
   color: white;
 }
 
+.header-auth {
+  margin: 0;
+}
+
+.nav-auth {
+  border: 0;
+  background: transparent;
+  color: var(--color-green);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.flash-message {
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-paper);
+  color: var(--color-green-dark);
+}
+
 .hero {
   display: grid;
   min-height: 570px;
@@ -478,6 +502,59 @@ h1,
   border: 1px solid var(--color-line);
   border-radius: 14px;
   background: var(--color-paper);
+}
+
+.auth-page {
+  display: grid;
+  min-height: 520px;
+  place-items: start center;
+}
+
+.auth-card {
+  width: min(520px, 100%);
+}
+
+.auth-card h1 {
+  margin-bottom: 22px;
+  font-size: 42px;
+}
+
+.auth-card .form-card {
+  width: 100%;
+}
+
+.table-card {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  background: var(--color-paper);
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table-card th,
+.table-card td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.table-card tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-green-light);
+  color: var(--color-green-dark);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 .form-grid {

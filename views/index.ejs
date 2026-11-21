@@ -1,5 +1,8 @@
 <%- include('partials/header', { pageTitle, currentPage }) %>
 <main>
+  <% if (flashMessage) { %>
+  <div class="container flash-message" role="status"><%= flashMessage %></div>
+  <% } %>
   <section class="container hero">
     <div class="hero-copy">
       <p class="eyebrow">Local action. Lasting change.</p>
@@ -8,6 +11,9 @@
       <div class="hero-actions">
         <a class="button" href="/projects">Explore projects <span class="button-arrow" aria-hidden="true">&rarr;</span></a>
         <a class="text-link" href="/organizations">Meet the organizations</a>
+        <% if (currentUser && currentUser.role === 'admin') { %>
+        <a class="text-link" href="/users">View registered users</a>
+        <% } %>
       </div>
     </div>
     <figure class="hero-image">

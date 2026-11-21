@@ -4,7 +4,9 @@
     <p class="eyebrow">People making things happen</p>
     <h1>Meet the organizations behind local change.</h1>
     <p>Community progress is powered by people who show up, share what they know, and make room for others to take part.</p>
+    <% if (currentUser && currentUser.role === 'admin') { %>
     <a class="button page-action" href="/new-organization">Create an organization</a>
+    <% } %>
   </section>
   <section class="feature-grid" aria-label="Partner organizations">
     <% organizations.forEach((organization) => { %>
@@ -21,7 +23,9 @@
         </h2>
         <p><%= organization.description %></p>
         <a class="card-link" href="mailto:<%= organization.contact_email %>">Contact <%= organization.organization_name %></a>
+        <% if (currentUser && currentUser.role === 'admin') { %>
         <a class="card-link" href="/edit-organization/<%= organization.organization_id %>">Edit organization</a>
+        <% } %>
       </div>
     </article>
     <% }) %>
