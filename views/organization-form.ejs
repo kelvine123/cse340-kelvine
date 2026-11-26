@@ -34,6 +34,7 @@
     <div class="form-field">
       <label for="logo">Logo image URL <span class="optional-label">(optional)</span></label>
       <input id="logo" name="logo" type="url" value="<%= organization.logo || '' %>">
+      <% if (errors.logo) { %><p class="field-error" id="logo_error"><%= errors.logo %></p><% } %>
     </div>
     <div class="form-actions">
       <button class="button" type="submit"><%= submitLabel %></button>

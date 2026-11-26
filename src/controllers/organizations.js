@@ -10,6 +10,7 @@ import {
   parseRouteId,
   withErrorHandling,
 } from './controllerUtils.js';
+import { getValidationErrors } from '../middleware/validation.js';
 
 const getOrganizationForm = (request) => {
   const body = request.body || {};
@@ -25,29 +26,6 @@ const getOrganizationForm = (request) => {
       : '',
     logo: typeof body.logo === 'string' ? body.logo.trim() : '',
   };
-};
-
-const getOrganizationErrors = (organization) => {
-  const errors = {};
-  if (!organization.organization_name) {
-    errors.organization_name = 'Enter an organization name.';
-  } else if (organization.organization_name.length < 3) {
-    errors.organization_name = 'Organization name must be at least 3 characters.';
-  } else if (organization.organization_name.length > 150) {
-    errors.organization_name = 'Organization name must be 150 characters or fewer.';
-  }
-
-  if (!organization.description || organization.description.length < 3) {
-    errors.description = 'Enter a description of at least 3 characters.';
-  }
-  if (
-    !organization.contact_email
-    || organization.contact_email.length > 254
-    || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(organization.contact_email)
-  ) {
-    errors.contact_email = 'Enter a valid contact email address.';
-  }
-  return errors;
 };
 
 const renderOrganizationForm = (response, organization, errors = {}, status = 200) => {
@@ -85,7 +63,7 @@ export const createOrganizationPage = (request, response) => {
 
 export const createOrganization = withErrorHandling(async (request, response) => {
   const organization = getOrganizationForm(request);
-  const errors = getOrganizationErrors(organization);
+  const errors = getValidationErrors(request);
   if (Object.keys(errors).length > 0) {
     return renderOrganizationForm(response, organization, errors, 400);
   }
@@ -114,7 +92,7 @@ export const updateOrganization = withErrorHandling(async (request, response) =>
     ...existingOrganization,
     ...getOrganizationForm(request),
   };
-  const errors = getOrganizationErrors(organization);
+  const errors = getValidationErrors(request);
   if (Object.keys(errors).length > 0) {
     return renderOrganizationForm(response, organization, errors, 400);
   }

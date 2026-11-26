@@ -15,6 +15,7 @@ import {
   parseRouteId,
   withErrorHandling,
 } from './controllerUtils.js';
+import { getValidationErrors } from '../middleware/validation.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -47,44 +48,20 @@ const getProjectForm = (request) => {
   };
 };
 
-const isValidDate = (value) => {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return false;
-  }
-  const date = new Date(`${value}T00:00:00.000Z`);
-  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
-};
-
-const getProjectErrors = (project, organizations, categories) => {
-  const errors = {};
-  if (!project.project_name) {
-    errors.project_name = 'Enter a project name.';
-  } else if (project.project_name.length < 3) {
-    errors.project_name = 'Project name must be at least 3 characters.';
-  } else if (project.project_name.length > 150) {
-    errors.project_name = 'Project name must be 150 characters or fewer.';
-  }
-  if (!project.description || project.description.length < 3) {
-    errors.description = 'Enter a description of at least 3 characters.';
-  }
-  if (!isValidDate(project.project_date)) {
-    errors.project_date = 'Choose a valid project date.';
-  }
-  if (!project.location) {
-    errors.location = 'Enter a project location.';
-  } else if (project.location.length > 255) {
-    errors.location = 'Location must be 255 characters or fewer.';
-  }
+const getProjectErrors = (project, organizations, categories, errors) => {
   if (!organizations.some((organization) => (
     String(organization.organization_id) === project.organization_id
-  ))) {
+  )) && !errors.organization_id) {
     errors.organization_id = 'Choose an organization.';
   }
 
   const availableCategoryIds = new Set(categories.map((category) => (
     String(category.category_id)
   )));
-  if (project.category_ids.some((categoryId) => !availableCategoryIds.has(categoryId))) {
+  if (
+    project.category_ids.some((categoryId) => !availableCategoryIds.has(categoryId))
+    && !errors.category_ids
+  ) {
     errors.category_ids = 'Choose valid project categories.';
   }
   return errors;
@@ -145,7 +122,12 @@ export const createProjectPage = withErrorHandling(async (request, response) => 
 export const createProject = withErrorHandling(async (request, response) => {
   const [organizations, categories] = await getProjectFormOptions();
   const project = getProjectForm(request);
-  const errors = getProjectErrors(project, organizations, categories);
+  const errors = getProjectErrors(
+    project,
+    organizations,
+    categories,
+    getValidationErrors(request),
+  );
   if (Object.keys(errors).length > 0) {
     return renderProjectForm(response, project, organizations, categories, errors, 400);
   }
@@ -177,7 +159,12 @@ export const updateProject = withErrorHandling(async (request, response) => {
 
   const [organizations, categories] = await getProjectFormOptions();
   const project = { ...existingProject, ...getProjectForm(request) };
-  const errors = getProjectErrors(project, organizations, categories);
+  const errors = getProjectErrors(
+    project,
+    organizations,
+    categories,
+    getValidationErrors(request),
+  );
   if (Object.keys(errors).length > 0) {
     return renderProjectForm(response, project, organizations, categories, errors, 400);
   }

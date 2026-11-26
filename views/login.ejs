@@ -9,10 +9,12 @@
       <div class="form-field">
         <label for="username">Email</label>
         <input id="username" name="username" type="email" value="<%= values.username || '' %>" autocomplete="username" required>
+        <% if (errors.username) { %><p class="field-error"><%= errors.username %></p><% } %>
       </div>
       <div class="form-field">
         <label for="password">Password</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <% if (errors.password) { %><p class="field-error"><%= errors.password %></p><% } %>
       </div>
       <div class="form-actions">
         <button class="button" type="submit">Log in</button>

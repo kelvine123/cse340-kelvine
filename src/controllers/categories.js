@@ -10,25 +10,13 @@ import {
   parseRouteId,
   withErrorHandling,
 } from './controllerUtils.js';
+import { getValidationErrors } from '../middleware/validation.js';
 
 const getCategoryName = (request) => (
   typeof request.body?.category_name === 'string'
     ? request.body.category_name.trim()
     : ''
 );
-
-const getCategoryErrors = (categoryName) => {
-  if (!categoryName) {
-    return { category_name: 'Enter a category name.' };
-  }
-  if (categoryName.length < 3) {
-    return { category_name: 'Category name must be at least 3 characters.' };
-  }
-  if (categoryName.length > 100) {
-    return { category_name: 'Category name must be 100 characters or fewer.' };
-  }
-  return {};
-};
 
 const renderCategoryForm = (response, view, category, errors = {}, status = 200) => {
   response.status(status).render(view, {
@@ -54,7 +42,7 @@ export const createCategoryPage = (request, response) => {
 
 export const createCategory = withErrorHandling(async (request, response) => {
   const category = { category_name: getCategoryName(request) };
-  const errors = getCategoryErrors(category.category_name);
+  const errors = getValidationErrors(request);
   if (Object.keys(errors).length > 0) {
     return renderCategoryForm(response, 'new-category', category, errors, 400);
   }
@@ -80,7 +68,7 @@ export const updateCategory = withErrorHandling(async (request, response) => {
   }
 
   const category = { ...existingCategory, category_name: getCategoryName(request) };
-  const errors = getCategoryErrors(category.category_name);
+  const errors = getValidationErrors(request);
   if (Object.keys(errors).length > 0) {
     return renderCategoryForm(response, 'edit-category', category, errors, 400);
   }

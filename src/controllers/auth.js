@@ -5,6 +5,7 @@ import {
   getUserByUsername,
 } from '../models/users.js';
 import { withErrorHandling } from './controllerUtils.js';
+import { getValidationErrors } from '../middleware/validation.js';
 
 const renderAuthForm = (response, view, pageTitle, values = {}, errors = {}, status = 200) => {
   response.status(status).render(view, {
@@ -26,16 +27,8 @@ export const register = withErrorHandling(async (request, response) => {
     username: typeof request.body.username === 'string' ? request.body.username.trim().toLowerCase() : '',
     password: typeof request.body.password === 'string' ? request.body.password : '',
   };
-  const errors = {};
-  if (!values.first_name) errors.first_name = 'Enter a first name.';
-  if (!values.last_name) errors.last_name = 'Enter a last name.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.username)) {
-    errors.username = 'Enter a valid email address.';
-  }
-  if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 characters.';
-  }
-  if (await getUserByUsername(values.username)) {
+  const errors = getValidationErrors(request);
+  if (!errors.username && await getUserByUsername(values.username)) {
     errors.username = 'An account already exists with that email address.';
   }
   if (Object.keys(errors).length > 0) {
@@ -57,6 +50,10 @@ export const login = withErrorHandling(async (request, response) => {
     ? request.body.username.trim().toLowerCase()
     : '';
   const password = typeof request.body.password === 'string' ? request.body.password : '';
+  const errors = getValidationErrors(request);
+  if (Object.keys(errors).length > 0) {
+    return renderAuthForm(response, 'login', 'Log In', { username }, errors, 400);
+  }
   const user = await getUserByUsername(username);
   const passwordMatches = user ? await bcrypt.compare(password, user.password) : false;
   if (!passwordMatches) {
