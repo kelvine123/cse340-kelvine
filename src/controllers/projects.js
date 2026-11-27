@@ -11,6 +11,11 @@ import {
 } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import {
+  addProjectVolunteer,
+  isProjectVolunteer,
+  removeProjectVolunteer,
+} from '../models/volunteers.js';
+import {
   createNotFoundError,
   parseRouteId,
   withErrorHandling,
@@ -185,11 +190,53 @@ export const showProjectDetailsPage = withErrorHandling(async (request, response
     throw createNotFoundError('Service project');
   }
 
-  const categories = await getCategoriesByProjectId(projectId);
+  const [categories, isVolunteer] = await Promise.all([
+    getCategoriesByProjectId(projectId),
+    request.session?.user
+      ? isProjectVolunteer(projectId, request.session.user.user_id)
+      : false,
+  ]);
   response.render('project', {
     pageTitle: project.project_name,
     currentPage: 'projects',
     project,
     categories,
+    isVolunteer,
   });
 });
+
+export const volunteerForProject = withErrorHandling(async (request, response) => {
+  const projectId = parseRouteId(request.params.id, 'Service project');
+  const project = await getProjectDetails(projectId);
+  if (!project) {
+    throw createNotFoundError('Service project');
+  }
+
+  const added = await addProjectVolunteer(projectId, request.session.user.user_id);
+  request.session.flashMessage = added
+    ? 'You are now volunteering for this project.'
+    : 'You are already volunteering for this project.';
+  response.redirect(`/project/${projectId}`);
+});
+
+const removeVolunteer = async (request, response, redirectToDashboard) => {
+  const projectId = parseRouteId(request.params.id, 'Service project');
+  const project = await getProjectDetails(projectId);
+  if (!project) {
+    throw createNotFoundError('Service project');
+  }
+
+  const removed = await removeProjectVolunteer(projectId, request.session.user.user_id);
+  request.session.flashMessage = removed
+    ? 'You are no longer volunteering for this project.'
+    : 'You were not signed up for this project.';
+  response.redirect(redirectToDashboard ? '/dashboard' : `/project/${projectId}`);
+};
+
+export const removeVolunteerFromProject = withErrorHandling((request, response) => (
+  removeVolunteer(request, response, false)
+));
+
+export const removeVolunteerFromDashboard = withErrorHandling((request, response) => (
+  removeVolunteer(request, response, true)
+));

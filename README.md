@@ -30,9 +30,9 @@ submitted values.
 ## Database setup
 
 `src/setup.sql` defines the PostgreSQL organizations, service projects,
-categories, and their relationships, and seeds example records. Create a
-PostgreSQL database, set its connection string as `DATABASE_URL` in `.env`
-(see `.env.example`), then run:
+categories, users, volunteer signups, and their relationships, and seeds
+example records. Create a PostgreSQL database, set its connection string as
+`DATABASE_URL` in `.env` (see `.env.example`), then run:
 
 ```sh
 psql -d your_database -f src/setup.sql
@@ -50,6 +50,9 @@ the same `DATABASE_URL` environment variable in your hosting service to use it
 there. The organizations page displays organization names, descriptions,
 contact emails, and logos from the database. The projects page displays project
 names, descriptions, locations, and their organizations.
+
+Logged-in users can sign up for projects from a project's detail page and
+manage their signups from the dashboard.
 
 ## Render deployment
 

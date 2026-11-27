@@ -64,5 +64,35 @@
       </div>
     </div>
   </section>
+  <% if (currentPage === 'dashboard') { %>
+  <section class="container page-section" aria-labelledby="volunteer-projects-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Your community commitments</p>
+        <h2 id="volunteer-projects-heading">Projects you are volunteering for</h2>
+      </div>
+    </div>
+    <% if (volunteerProjects.length > 0) { %>
+    <ul class="project-link-list">
+      <% volunteerProjects.forEach((project) => { %>
+      <li>
+        <a href="/project/<%= project.project_id %>"><%= project.project_name %></a>
+        <p>
+          <time datetime="<%= project.project_date.toISOString().slice(0, 10) %>">
+            <%= new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' }).format(project.project_date) %>
+          </time>
+          · <%= project.location %> · <%= project.organization_name %>
+        </p>
+        <form action="/dashboard/project/<%= project.project_id %>/unvolunteer" method="post">
+          <button class="button" type="submit">Remove me as a volunteer</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p class="empty-state">You have not signed up for any projects yet. <a class="item-link" href="/projects">Explore upcoming projects</a>.</p>
+    <% } %>
+  </section>
+  <% } %>
 </main>
 <%- include('partials/footer') %>

@@ -24,6 +24,9 @@ import {
   updateProject,
   showProjectsPage,
   showProjectDetailsPage,
+  volunteerForProject,
+  removeVolunteerFromProject,
+  removeVolunteerFromDashboard,
 } from './controllers/projects.js';
 import {
   loginPage,
@@ -64,6 +67,9 @@ router.post('/new-project', requireRole('admin'), projectValidation, createProje
 router.get('/edit-project/:id', requireRole('admin'), editProjectPage);
 router.post('/edit-project/:id', requireRole('admin'), projectValidation, updateProject);
 router.get('/project/:id', showProjectDetailsPage);
+router.post('/project/:id/volunteer', requireLogin, volunteerForProject);
+router.post('/project/:id/unvolunteer', requireLogin, removeVolunteerFromProject);
+router.post('/dashboard/project/:id/unvolunteer', requireLogin, removeVolunteerFromDashboard);
 router.get('/categories', showCategoriesPage);
 router.get('/new-category', requireRole('admin'), createCategoryPage);
 router.post('/new-category', requireRole('admin'), categoryValidation, createCategory);

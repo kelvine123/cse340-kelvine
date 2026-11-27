@@ -12,6 +12,20 @@
     </p>
     <p><%= project.description %></p>
     <p>Location: <%= project.location %></p>
+    <% if (currentUser) { %>
+    <div class="page-action">
+      <% if (isVolunteer) { %>
+      <p>You are volunteering for this project.</p>
+      <form action="/project/<%= project.project_id %>/unvolunteer" method="post">
+        <button class="button" type="submit">Remove me as a volunteer</button>
+      </form>
+      <% } else { %>
+      <form action="/project/<%= project.project_id %>/volunteer" method="post">
+        <button class="button" type="submit">Volunteer for this project</button>
+      </form>
+      <% } %>
+    </div>
+    <% } %>
     <% if (currentUser && currentUser.role === 'admin') { %>
     <a class="button page-action" href="/edit-project/<%= project.project_id %>">Edit project</a>
     <% } %>

@@ -372,6 +372,18 @@ CREATE TABLE IF NOT EXISTS users (
   role VARCHAR(20) NOT NULL DEFAULT 'user'
 );
 
+CREATE TABLE IF NOT EXISTS project_volunteers (
+  project_id INTEGER NOT NULL
+    REFERENCES service_projects (project_id) ON DELETE CASCADE,
+  user_id INTEGER NOT NULL
+    REFERENCES users (user_id) ON DELETE CASCADE,
+  signed_up_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (project_id, user_id)
+);
+
+CREATE INDEX IF NOT EXISTS project_volunteers_user_id_idx
+  ON project_volunteers (user_id);
+
 ALTER TABLE users
   ADD COLUMN IF NOT EXISTS first_name VARCHAR(100);
 ALTER TABLE users
