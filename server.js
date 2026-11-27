@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import router from './src/routes.js';
 import { ensureAdminUser } from './src/models/users.js';
+import { ensureProjectVolunteerTable } from './src/models/volunteers.js';
 
 const app = express();
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -65,10 +66,11 @@ app.use((error, request, response, next) => {
 });
 
 ensureAdminUser()
+  .then(() => ensureProjectVolunteerTable())
   .then(() => {
     app.listen(port, '0.0.0.0');
   })
   .catch((error) => {
-    console.error('Failed to initialize authentication:', error);
+    console.error('Failed to initialize the application database:', error);
     process.exit(1);
   });

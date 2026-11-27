@@ -1,5 +1,26 @@
 import { query } from '../database/index.js';
 
+export const ensureProjectVolunteerTable = async () => {
+  if (!process.env.DATABASE_URL) {
+    return;
+  }
+
+  await query(
+    `CREATE TABLE IF NOT EXISTS project_volunteers (
+       project_id INTEGER NOT NULL
+         REFERENCES service_projects (project_id) ON DELETE CASCADE,
+       user_id INTEGER NOT NULL
+         REFERENCES users (user_id) ON DELETE CASCADE,
+       signed_up_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+       PRIMARY KEY (project_id, user_id)
+     )`,
+  );
+  await query(
+    `CREATE INDEX IF NOT EXISTS project_volunteers_user_id_idx
+     ON project_volunteers (user_id)`,
+  );
+};
+
 export const addProjectVolunteer = async (projectId, userId) => {
   const { rows } = await query(
     `INSERT INTO project_volunteers (project_id, user_id)
